@@ -15,38 +15,22 @@
  */
 
 package com.kubeforce.googlepubsub;
-import com.google.cloud.spring.pubsub.core.PubSubTemplate;
-import com.google.cloud.spring.pubsub.integration.AckMode;
-import com.google.cloud.spring.pubsub.integration.inbound.PubSubInboundChannelAdapter;
-import com.google.cloud.spring.pubsub.integration.outbound.PubSubMessageHandler;
-import com.google.cloud.spring.pubsub.support.BasicAcknowledgeablePubsubMessage;
-import com.google.cloud.spring.pubsub.support.GcpPubSubHeaders;
-import java.util.Random;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.integration.annotation.ServiceActivator;
-import org.springframework.integration.channel.PublishSubscribeChannel;
-import org.springframework.integration.support.MessageBuilder;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.MessageHandler;
-import org.springframework.messaging.handler.annotation.Header;
-import reactor.core.publisher.Flux;
-import reactor.core.scheduler.Schedulers;
-import org.springframework.integration.annotation.MessagingGateway;
+
 @SpringBootApplication
-public class PubSubApplication {
+public class GooglePubSubApplication {
 
 
     public static void main(String[] args) {
-        SpringApplication.run(PubSubApplication.class, args);
+        SpringApplication.run(GooglePubSubApplication.class, args);
     }
 
+    @Bean
+    public ProducerFunction producerFunction() {
+        return new ProducerFunction();
+    }
 
 }
+

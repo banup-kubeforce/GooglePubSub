@@ -1,21 +1,25 @@
-package com.example.kinesis_scf;
+package com.kubeforce.googlepubsub;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
 import java.util.function.Function;
 
 public class ProducerFunction implements Function<TrackDetail,String> {
     @Autowired
-    private ProducerService producerService;
+    private PubSubPublisher publisher;
+
     @Override
     public String apply(TrackDetail trackDetail) {
         ObjectMapper mapper = new ObjectMapper();
         String data = "";
         try {
             data = mapper.writeValueAsString(trackDetail);
-            producerService.putDataIntoKinesis(data);
+
+            MessageEntity entity = new MessageEntity(LocalDateTime.now(), data);
+            publisher.publish(data);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         } catch (Exception e) {

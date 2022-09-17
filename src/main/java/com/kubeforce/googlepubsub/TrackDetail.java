@@ -1,4 +1,4 @@
-package com.example.kinesis_scf;
+package com.kubeforce.googlepubsub;
 
 public class TrackDetail {
     private String vehicleId;
